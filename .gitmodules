@@ -1,3 +1,6 @@
 [submodule "blink/arduino-cmake"]
 	path = blink/arduino-cmake
 	url = git://github.com/crazy-eddie/arduino-cmake.git
+[submodule "spaceship/arduino-cmake"]
+	path = spaceship/arduino-cmake
+	url = git://github.com/crazy-eddie/arduino-cmake.git
