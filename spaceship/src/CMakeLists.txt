@@ -1,5 +1,6 @@
 
 generate_arduino_firmware(spaceship
-    SKETCH spaceship.ino
+    SRCS spaceship.cpp
     PORT  /dev/ttyACM0
+    SERIAL picocom @SERIAL_PORT@ -b 9600 -l
     BOARD uno)
