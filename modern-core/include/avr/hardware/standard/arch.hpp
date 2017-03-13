@@ -60,6 +60,16 @@ struct arch
     }
 };
 
+/*
+ * constexpr auto standard = arch.register_pin(pin13, PB, i<_BV(5)>{});
+ * constexpr auto pgm_hardware_initializer = standard.set_mode(pin13, output);
+ *
+ * auto const pgm_hardware = pgm_hardware_initializer.init();
+ *
+ * auto const pin = pgm_hardware.pin(pin13);
+ * pin.high();
+ */
+
 }}} // avr::hardware::standard
 
 
