@@ -1,7 +1,8 @@
 #ifndef AVR_PINS_HPP
 #define AVR_PINS_HPP
 
-#include <Arduino.h>
+//#include <Arduino.h>
+#include <cstdint>
 
 namespace avr {
 

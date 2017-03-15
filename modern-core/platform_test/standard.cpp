@@ -11,14 +11,14 @@ using namespace avr;
 
 void setup()
 {
-    arch::set_mode(pins::pin(pin13), pin_config::output);
+    arch_<>::set_mode(pins::pin(pin13), pin_config::output);
 }
 
 void loop() {
 
-    arch::high(pins::pin(pin13));
+    arch_<>::high(pins::pin(pin13));
     delay(1000);              // wait for a second
-    arch::low(pins::pin(pin13));
+    arch_<>::low(pins::pin(pin13));
     delay(500);              // wait for a second
 }
 
@@ -42,4 +42,5 @@ text       data     bss     dec     hex filename
 text       data     bss     dec     hex filename
     690       0       9     699     2bb /home/satan/github/arduino/modern-core/platform/platform_test/standard.elf
       0       0       0       0       0 /home/satan/github/arduino/modern-core/platform/platform_test/standard.eep
+
  */

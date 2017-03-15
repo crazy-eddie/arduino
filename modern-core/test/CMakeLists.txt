@@ -1,11 +1,4 @@
 
-
-enable_testing()
-include(CTest)
-
-
-set(CMAKE_CXX_FLAGS " -g -std=c++1y -Wall -Werror -pedantic -pedantic-errors")
-
 find_package(Boost)
 find_package(Boost COMPONENTS unit_test_framework timer system)
 
@@ -13,6 +6,8 @@ add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
 add_custom_target(tests)
 
 include_directories(${Boost_INCLUDE_DIR})
+
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -std=c++11)
 
 if (CI_BUILD)
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/test/reports)
@@ -39,4 +34,5 @@ function(add_boost_test name)
   add_dependencies(tests ${name})
 endfunction()
 
+add_boost_test(arch arch.cpp)
 add_boost_test(pins pins.cpp)

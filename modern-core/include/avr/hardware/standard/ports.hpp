@@ -12,12 +12,13 @@ struct pin
 };
 
 #define PORT(X) \
-constexpr struct P ## X ## _ \
+struct P ## X ## _ \
 { \
     static uint8_t volatile* mode_register() { return &DDR ## X ; } \
     static uint8_t volatile* input_register() { return &PIN ## X ; } \
     static uint8_t volatile* output_register() { return &PORT ## X ; } \
-} P ## X
+    constexpr P ## X ## _ (){} \
+}; constexpr P ## X ## _ P ## X
 
 PORT(B);
 PORT(C);

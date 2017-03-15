@@ -4,12 +4,19 @@
 #include <Arduino.h>
 
 #include "../tags.hpp"
+#include "../../../mpl/integral_constant.hpp"
 
 #include "ports.hpp"
 
 namespace avr { namespace hardware { namespace standard {
 
-struct arch
+struct empty_pins
+{
+    constexpr empty_pins(){}
+};
+
+template < typename PinCollection = empty_pins >
+struct arch_
 {
     template < typename Pin >
     static void set_mode(Pin pin, pin_config::input_tag)
@@ -29,7 +36,6 @@ struct arch
         auto old = SREG;
         cli();
 
-        //*reinterpret_cast<volatile uint8_t*>(reg) |= mask;
         *(pin.port.mode_register()) |= pin.mask;
 
         SREG = old;
@@ -41,7 +47,6 @@ struct arch
         auto const old = SREG;
         cli();
 
-        //*reinterpret_cast<volatile uint8_t*>(reg) |= mask;
         *(pin.port.output_register()) |= pin.mask;
 
         SREG = old;
@@ -53,12 +58,32 @@ struct arch
         auto const old = SREG;
         cli();
 
-        //*reinterpret_cast<volatile uint8_t*>(reg) |= mask;
         *(pin.port.output_register()) &= ~pin.mask;
 
         SREG = old;
     }
+
+    template < typename PinTag, typename Port, typename Mask >
+    constexpr arch_<> register_pin(PinTag pin, Port port, Mask mask)
+    {
+        return arch_<>{};
+    }
+
+    constexpr arch_() {}
+
+private:
+    PinCollection pins;
 };
+
+//constexpr auto arch = arch_<>{};
+//constexpr arch_<> arch;
+constexpr arch_<> arch() { return arch_<>{}; } // why does this work when the above doesn't?
+
+#define BV(X) mpl::integral_constant<uint8_t, _BV(5)>{}
+
+constexpr auto standard = arch()
+        .register_pin(pin13, ports::PB, BV(5));
+    ;
 
 /*
  * constexpr auto standard = arch.register_pin(pin13, PB, i<_BV(5)>{});
