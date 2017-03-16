@@ -2,7 +2,9 @@
 #define AVR_PINS_HPP
 
 //#include <Arduino.h>
-#include <cstdint>
+//#include <cstdint>
+
+using uint8_t = char unsigned;
 
 namespace avr {
 

@@ -11,14 +11,14 @@ using namespace avr;
 
 void setup()
 {
-    arch_<>::set_mode(pins::pin(pin13), pin_config::output);
+    standard_arch::set_mode(pins::pin(pin13), pin_config::output);
 }
 
 void loop() {
 
-    arch_<>::high(pins::pin(pin13));
+    standard_arch::high(pins::pin(pin13));
     delay(1000);              // wait for a second
-    arch_<>::low(pins::pin(pin13));
+    standard_arch::low(pins::pin(pin13));
     delay(500);              // wait for a second
 }
 

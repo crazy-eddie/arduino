@@ -3,12 +3,21 @@
 
 namespace avr { namespace hardware { namespace test {
 
+template < typename Port, typename Mask >
+struct pin
+{
+    static Port port;
+    static uint8_t const mask = Mask::value;
+};
+
 template <int>
 struct port
 {
     static uint8_t* mode_register() { return &mode; }
     static uint8_t* input_register() { return &input; }
     static uint8_t* output_register() { return &output; }
+
+    static void reset();
 
     static uint8_t mode;
     static uint8_t input;
@@ -27,6 +36,11 @@ constexpr port<2> P2;
 template <int I>
 uint8_t port<I>::mode = 0;
 
+template <int I>
+uint8_t port<I>::input = 0;
+
+template <int I>
+uint8_t port<I>::output = 0;
 
 }}}
 
